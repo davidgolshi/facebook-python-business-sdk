@@ -362,7 +362,7 @@ class Event(object):
             )
             
     def validate_data_processing_options(self, data_processing_options):
-        if not data_processing_options == "AMO":
+        if not data_processing_options[0] == "AMO":
             raise TypeError(
                 "data_processing_options must be 'AMO' while advanced_measurement_table is set. TypeError on value: %s"
                 % data_processing_options
