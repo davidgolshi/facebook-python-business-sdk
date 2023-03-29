@@ -345,7 +345,10 @@ class Event(object):
         if self.action_source is not None:
             self.validate_action_source(self.action_source)
             normalized_payload["action_source"] = self.action_source.value
-
+        
+        if self.advanced_measurement_table is not None:
+            self.validate_data_processing_options(self.data_processing_options)
+            
         normalized_payload = {
             k: v for k, v in normalized_payload.items() if v is not None
         }
@@ -357,7 +360,14 @@ class Event(object):
                 "action_source must be an ActionSource. TypeError on value: %s"
                 % action_source
             )
-
+            
+    def validate_data_processing_options(self, data_processing_options):
+        if not data_processing_options == "AMO":
+            raise TypeError(
+                "data_processing_options must be 'AMO' while advanced_measurement_table is set. TypeError on value: %s"
+                % data_processing_options
+            )
+            
     def to_dict(self):
         """Returns the model properties as a dict"""
         result = {}
